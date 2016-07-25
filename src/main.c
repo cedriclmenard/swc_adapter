@@ -1,3 +1,21 @@
+/* Ford-Sony Head Unit Steering Wheel Controls Integration
+
+Copyright (C) 2016  Cedric Leblond Menard
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
@@ -7,18 +25,24 @@
 #define VOL_DWN	2
 #define SEEK_UP	3
 #define SEEK_DWN 4
+#define MUTE 5
+#define DISPLAY 6
+#define BAND_ESCAPE 7
 
 #define NO_STATE 255
 #define TRUE 255
 #define FALSE 0
 
 // Lookup table for output resistance value
-const uint8_t lookupOutput[5] = {
-	0,		// MENU
-	0,		// VOL_UP
-	0,		// VOL_DWN
-	0,		// SEEK_UP
-	0		// SEEK_DWN
+const uint8_t lookupOutput[8] = {
+	3,		// MENU
+	41,		// VOL_UP
+	61,		// VOL_DWN
+	20,		// SEEK_UP
+	29,		// SEEK_DWN
+	9,		// MUTE
+	14,		// DISPLAY
+	160		// BAND_ESCAPE
 };
 
 volatile uint8_t check_flag = FALSE;
